@@ -1,0 +1,290 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "home assistant",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "HumidityIntent",
+                    "slots": [],
+                    "samples": [
+                        "how humid it is",
+                        "what is our humidity",
+                        "humidity check",
+                        "What is the humidity",
+                        "Check humidity",
+                        "What's the humidity"
+                    ]
+                },
+                {
+                    "name": "ActivateSceneIntent",
+                    "slots": [
+                        {
+                            "name": "Scene",
+                            "type": "Scenes"
+                        }
+                    ],
+                    "samples": [
+                        "activate {Scene}"
+                    ]
+                },
+                {
+                    "name": "TemperatureIntent",
+                    "slots": [],
+                    "samples": [
+                        "how cold is it",
+                        "how hot is it",
+                        "check temperature",
+                        "temperature check",
+                        "what is the temperature"
+                    ]
+                },
+                {
+                    "name": "AirPressureIntent",
+                    "slots": [],
+                    "samples": [
+                        "air pressure check",
+                        "pressure check",
+                        "check pressure",
+                        "check air pressure",
+                        "what is the air pressure",
+                        "what is the pressure",
+                        "what's the pressure"
+                    ]
+                },
+                {
+                    "name": "TurnLightsIntent",
+                    "slots": [
+                        {
+                            "name": "onoff",
+                            "type": "OnOff",
+                            "samples": [
+                                "No {onoff}",
+                                "Yes {onoff}",
+                                "Make {onoff}",
+                                "Do {onoff}",
+                                "I want it {onoff}",
+                                "{onoff}"
+                            ]
+                        },
+                        {
+                            "name": "entity",
+                            "type": "Entities"
+                        }
+                    ],
+                    "samples": [
+                        "turn {entity} {onoff}",
+                        "turn {onoff} {entity}",
+                        "turn {onoff} the {entity} "
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "Scenes",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "office off"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "office on"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "office bright"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "office dim"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab arctic aurora"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab bright"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab concentrate"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab dimmed"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab energize"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab ibiza"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab nightlight"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab pink"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab read"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab relax"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab savanna sunset"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab spring blossom"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab tropical twilight"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Entities",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "lamp one"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "iot lab"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "hue go 1"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "hue color lamp 2"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "hue color lamp 1"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "OnOff",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "on"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "off"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "TurnLightsIntent",
+                    "confirmationRequired": true,
+                    "prompts": {
+                        "confirmation": "Confirm.Intent.1379827180442"
+                    },
+                    "slots": [
+                        {
+                            "name": "onoff",
+                            "type": "OnOff",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.823641258713.1462355811241"
+                            }
+                        },
+                        {
+                            "name": "entity",
+                            "type": "Entities",
+                            "confirmationRequired": false,
+                            "elicitationRequired": false,
+                            "prompts": {}
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.823641258713.1462355811241",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Do you want it on or off?"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Intent.1379827180442",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "Are you sure you want to turn {entity} {onoff} ?"
+                    }
+                ]
+            }
+        ]
+    }
+}
