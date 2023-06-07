@@ -1,0 +1,102 @@
+panel_iframe:
+  portainer:
+    title: "Portainer"
+    url: "http://172.31.156.239:9000/#/containers"
+    icon: mdi:docker
+    require_admin: true
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.17.0.1
+
+homeassistant:
+  name: Home
+  unit_system: metric
+  # etc
+  customize:
+      # Add an entry for each entity that you want to overwrite.
+      sensor.temperature:
+        icon: mdi:thermometer
+        friendly_name: Temperature
+      sensor.air_pressure:
+        friendly_name: Air Pressure
+        icon: mdi:chart-box-outline
+      sensor.humidity:
+        friendly_name: Humidity
+        icon: mdi:water
+
+# Example configuration.yaml entry
+mqtt:
+  sensor:
+    - name: "Temperature"
+      state_topic: "iotlab/sensor"
+      suggested_display_precision: 1
+      unit_of_measurement: "°C"
+      value_template: "{{ value_json.temperature }}"
+      unique_id: "waspmote_sensor_temperature"
+    - name: "Humidity"
+      state_topic: "iotlab/sensor"
+      unit_of_measurement: "%"
+      value_template: "{{ value_json.humidity }}"
+      unique_id: "waspmote_sensor_humidity"
+    - name: "Air Pressure"
+      state_topic: "iotlab/sensor"
+      unit_of_measurement: "hPa"
+      value_template: "{{ value_json.pressure }}"
+      unique_id: "waspmote_sensor_pressure"
+
+
+intent_script:
+  amzn1.ask.skill.e98dcbb8-c0e4-48ef-8da1-4765514a0dc8:
+    speech:
+      type: plain
+      text: home assistant is running
+  ActivateSceneIntent:
+    action:
+      service: scene.turn_on
+      target:
+        entity_id: scene.{{ Scene | replace(" ", "_") }}
+    speech:
+      type: plain
+      text: !include alexa_confirm.yaml
+  HumidityIntent:  # Intent type
+    speech:
+      type: plain
+      text: Humidity is {{ states.sensor.humidity.state }} percent
+  TemperatureIntent:  # Intent type
+    speech:
+      type: plain
+      text: Temperature is {{ states.sensor.temperature.state }} degrees celsius
+  AirPressureIntent:  # Intent type
+    speech:
+      type: plain
+      text: Air pressure is {{ states.sensor.air_pressure.state }} hectopascals
+  TurnLightsIntent:
+    speech:
+      text: Turning {{ entity }} light {{ onoff }}
+    action:
+      - service_template: >
+          {%- if onoff == 'on' -%}
+            homeassistant.turn_on
+          {%- else -%}
+            homeassistant.turn_off
+          {%- endif -%}
+        data_template:
+          entity_id: light.{{ entity | replace(" ", "_") }}
+alexa:
+  smart_home:
